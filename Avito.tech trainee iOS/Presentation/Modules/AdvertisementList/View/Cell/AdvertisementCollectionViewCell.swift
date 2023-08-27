@@ -49,7 +49,6 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     
     private lazy var imageView: WebImageView = {
         let imageView = WebImageView()
-//        imageView.layer.shouldRasterize = true
         imageView.clipsToBounds = true
         imageView.backgroundColor = UIColor(named: "SecondaryBack")
         imageView.layer.cornerRadius = 8
@@ -74,7 +73,7 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
         titleLabel.text = advertisement.title
         priceLabel.text = advertisement.price
         placeLabel.text = advertisement.location
-        dateLabel.text = advertisement.createdDate
+        dateLabel.text = advertisement.createdDate.localizedDateString(with: "yyyy-MM-dd")
         if let url = URL(string: advertisement.imageUrl) {
             imageView.loadImage(url: url)
         }

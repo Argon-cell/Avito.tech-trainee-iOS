@@ -41,6 +41,8 @@
 		788E73E22A9AC78B00FFF876 /* AdvertisementDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788E73E12A9AC78B00FFF876 /* AdvertisementDetailPresenter.swift */; };
 		788E73E42A9AC80A00FFF876 /* AdvertisementDetailInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788E73E32A9AC80A00FFF876 /* AdvertisementDetailInput.swift */; };
 		788E73E62A9AC82C00FFF876 /* AdvertisementDetailOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788E73E52A9AC82C00FFF876 /* AdvertisementDetailOutput.swift */; };
+		788E73E82A9B785E00FFF876 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788E73E72A9B785E00FFF876 /* String.swift */; };
+		788E73EA2A9B7FC700FFF876 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788E73E92A9B7FC700FFF876 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		788E73E12A9AC78B00FFF876 /* AdvertisementDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetailPresenter.swift; sourceTree = "<group>"; };
 		788E73E32A9AC80A00FFF876 /* AdvertisementDetailInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetailInput.swift; sourceTree = "<group>"; };
 		788E73E52A9AC82C00FFF876 /* AdvertisementDetailOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetailOutput.swift; sourceTree = "<group>"; };
+		788E73E72A9B785E00FFF876 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		788E73E92A9B7FC700FFF876 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				788E73A82A97C4C800FFF876 /* UImageView.swift */,
+				788E73E72A9B785E00FFF876 /* String.swift */,
+				788E73E92A9B7FC700FFF876 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -393,6 +399,7 @@
 				788E73DB2A9AC68800FFF876 /* AdvertisementDetailAssembly.swift in Sources */,
 				788E73BE2A9AB03700FFF876 /* Coordinator.swift in Sources */,
 				788E737D2A97BA7500FFF876 /* Advertisement.swift in Sources */,
+				788E73E82A9B785E00FFF876 /* String.swift in Sources */,
 				788E73BB2A9AABB200FFF876 /* WebImageView.swift in Sources */,
 				788E73952A97BD0A00FFF876 /* HTTPNetworkResponse.swift in Sources */,
 				788E73482A97B9A100FFF876 /* AppDelegate.swift in Sources */,
@@ -403,6 +410,7 @@
 				788E73CC2A9AB71200FFF876 /* AdvertisementListOutput.swift in Sources */,
 				788E73D42A9ABB2600FFF876 /* AdvertisementListPresenter.swift in Sources */,
 				788E73C02A9AB06500FFF876 /* CoordinatorImp.swift in Sources */,
+				788E73EA2A9B7FC700FFF876 /* Date.swift in Sources */,
 				788E73E42A9AC80A00FFF876 /* AdvertisementDetailInput.swift in Sources */,
 				788E73B22A98C38500FFF876 /* AdvertisementDetailViewController.swift in Sources */,
 				788E73932A97BD0A00FFF876 /* NetworkClientImp.swift in Sources */,

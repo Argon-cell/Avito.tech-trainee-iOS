@@ -51,7 +51,6 @@ final class AdvertisementDetailPresenter {
 extension AdvertisementDetailPresenter: AdvertisementDetailOutput {
     func viewIsReady() {
         loadData()
-        viewInput?.showData(advertisement!)
     }
     
     func reload() {

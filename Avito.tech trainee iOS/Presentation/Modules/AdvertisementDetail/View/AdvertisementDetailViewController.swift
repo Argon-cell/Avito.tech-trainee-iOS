@@ -46,6 +46,15 @@ class AdvertisementDetailViewController: UIViewController {
         return label
     }()
     
+    private lazy var idLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(named: "SecondaryLabel")
+        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        label.numberOfLines = .max
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "SecondaryLabel")
@@ -122,37 +131,29 @@ class AdvertisementDetailViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "arrow.left")?.withTintColor(UIColor(named: "PrimaryLabel")!, renderingMode: .alwaysOriginal), target: self, action: #selector(backPressed))
+
+        
+        let exportButton = UIButton()
+        exportButton.setImage(UIImage(named: "ExportIcon")?.withTintColor(UIColor(named: "PrimaryLabel")!, renderingMode: .alwaysOriginal), for: .normal)
+        exportButton.frame.size = CGSize(width: 32, height: 24)
+        let exportBarButton = UIBarButtonItem(customView: exportButton)
+        
+        let likeButton = UIButton()
+        likeButton.setImage(UIImage(named: "HeartIcon")?.withTintColor(UIColor(named: "PrimaryLabel")!, renderingMode: .alwaysOriginal), for: .normal)
+        likeButton.frame.size = CGSize(width: 32, height: 24)
+        let likeBarButton = UIBarButtonItem(customView: likeButton)
+        
+        let cartButton = UIButton()
+        cartButton.setImage(UIImage(named: "CartIcon")?.withTintColor(UIColor(named: "PrimaryLabel")!, renderingMode: .alwaysOriginal), for: .normal)
+        cartButton.frame.size = CGSize(width: 32, height: 24)
+        let cartBarButton = UIBarButtonItem(customView: cartButton)
+
+        
+        navigationItem.rightBarButtonItems = [cartBarButton, likeBarButton, exportBarButton]
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
         activityIndicator.color = UIColor(named: "PrimaryLabel")
-        activityIndicator.startAnimating()
-        
-        addSubViews()
-        setupLayout()
-        hideUI()
-        presenter.viewIsReady()
     }
-    
-//    func loadData() {
-//        networkService.fetchDetailedAvertisement(id: advertisementId, { result in
-//            switch result {
-//            case .success(let success):
-//                self.advertisement = AdvertisementDetail(from: success)
-//                self.titleLabel.text = self.advertisement!.title
-//                self.priceLabel.text = self.advertisement!.price
-//                self.placeLabel.text = self.advertisement!.location + ", " + (self.advertisement?.address ?? "")
-//                self.dateLabel.text = self.advertisement!.createdDate
-//                self.descriptionLabel.text = self.advertisement!.description
-//                self.phoneLabel.text = self.advertisement!.phoneNumber
-//                self.emailLabel.text = self.advertisement!.email
-//
-//                self.imageView.loadImage(url: URL(string: self.advertisement!.imageUrl)!)
-//                self.state = .content
-//            case .failure(let failure):
-//                print(failure)
-//            }
-//        })
-//    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -162,22 +163,27 @@ class AdvertisementDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(named: "PrimaryBack")
         
+        addSubViews()
+        setupLayout()
+        
+        presenter.viewIsReady()
     }
     
     private func addSubViews() {
-        self.view.addSubview(scrollView)
-        self.view.addSubview(activityIndicator)
+        view.addSubview(scrollView)
+        view.addSubview(activityIndicator)
         
         scrollView.addSubview(imageView)
         scrollView.addSubview(priceLabel)
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(placeLabel)
-        scrollView.addSubview(dateLabel)
         scrollView.addSubview(descriptionTitleLabel)
         scrollView.addSubview(descriptionLabel)
         scrollView.addSubview(contactsTitleLabel)
         scrollView.addSubview(phoneLabel)
         scrollView.addSubview(emailLabel)
+        scrollView.addSubview(idLabel)
+        scrollView.addSubview(dateLabel)
     }
     
     private func setupLayout() {
@@ -185,11 +191,11 @@ class AdvertisementDetailViewController: UIViewController {
     
         scrollView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         scrollView.contentSize = view.bounds.size
         
-        imageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         imageView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0).isActive = true
@@ -198,7 +204,7 @@ class AdvertisementDetailViewController: UIViewController {
         priceLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         priceLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
         
-        titleLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 4).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         titleLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
 
@@ -206,11 +212,7 @@ class AdvertisementDetailViewController: UIViewController {
         placeLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         placeLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
 
-        dateLabel.topAnchor.constraint(equalTo: placeLabel.bottomAnchor, constant: 4).isActive = true
-        dateLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-        dateLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
-        
-        descriptionTitleLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 16).isActive = true
+        descriptionTitleLabel.topAnchor.constraint(equalTo: placeLabel.bottomAnchor, constant: 16).isActive = true
         descriptionTitleLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         descriptionTitleLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
         
@@ -229,35 +231,23 @@ class AdvertisementDetailViewController: UIViewController {
         emailLabel.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 8).isActive = true
         emailLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         emailLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
-        emailLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-    
+        
+        idLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 16).isActive = true
+        idLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        idLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
+        
+        
+        dateLabel.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 4).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        dateLabel.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
+        dateLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
     }
     
     @objc private func backPressed(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
 
-    
-//    func updateUI() {
-//        switch state {
-//            case .loading:
-//                activityIndicator.startAnimating()
-//                hideUI()
-//                loadData()
-//
-//            case .content:
-//                activityIndicator.stopAnimating()
-//                showUI()
-//
-//            case .error(let message):
-//                // Показываем сообщение об ошибке
-//                let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-//                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                alert.addAction(okAction)
-//                present(alert, animated: true, completion: nil)
-//        }
-//    }
-    
     private func hideUI() {
         imageView.isHidden = true
         contactsTitleLabel.isHidden = true
@@ -291,10 +281,11 @@ extension AdvertisementDetailViewController: AdvertisementDetailInput {
             self.titleLabel.text = data.title
             self.priceLabel.text = data.price
             self.placeLabel.text = data.location + ", " + data.address
-            self.dateLabel.text = data.createdDate
+            self.dateLabel.text = data.createdDate.localizedDateString(with: "yyyy-MM-dd")
             self.descriptionLabel.text = data.description
             self.phoneLabel.text = data.phoneNumber
             self.emailLabel.text = data.email
+            self.idLabel.text = "Обьявление №" + data.id
         }
         if let url = URL(string: data.imageUrl) {
             self.imageView.loadImage(url: url)

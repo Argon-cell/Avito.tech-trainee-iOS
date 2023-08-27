@@ -31,6 +31,8 @@ class AdvertisementListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor(named: "PrimaryBack")
+        
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout:  createLayout())
         collectionView.backgroundColor = UIColor(named: "PrimaryBack")
 
@@ -45,6 +47,16 @@ class AdvertisementListViewController: UIViewController {
         presenter.viewIsReady()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     // MARK: - Private methods
     private func addSubViews() {
         view.addSubview(collectionView)
@@ -53,6 +65,12 @@ class AdvertisementListViewController: UIViewController {
     
     private func setupLayout() {
         activityIndicator.center = view.center
+        
+        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        self.collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func createLayout() -> UICollectionViewLayout {
